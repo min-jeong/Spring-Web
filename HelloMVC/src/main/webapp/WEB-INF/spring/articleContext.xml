@@ -13,6 +13,4 @@
 		<property name="articleDAO" ref="articleDAO" />		
 	</bean>
 			
-	
-	
 </beans>

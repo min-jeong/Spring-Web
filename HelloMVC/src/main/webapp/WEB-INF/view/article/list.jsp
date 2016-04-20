@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,5 +23,16 @@
 			<td>${ date }</td>
 		</tr>
 	</table>
+	
+	<c:forEach items="${ allEmployees }" var="employee">
+	<!-- &nbsp; 는 한칸 공백 -->
+		${ employee.employeeId }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		${ employee.firstName }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		${ employee.lastName } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		${ employee.email }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		${ employee.hireDate }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		${ employee.departmentName }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		${ employee.salary }<br/>
+	</c:forEach>
 </body>
 </html>

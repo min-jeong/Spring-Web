@@ -1,10 +1,13 @@
 package com.ktds.jmj.biz.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ktds.jmj.biz.ArticleBiz;
 import com.ktds.jmj.dao.ArticleDAO;
+import com.ktds.jmj.vo.EmployeesVO;
 
 public class ArticleBizImpl implements ArticleBiz {
 	
@@ -24,6 +27,11 @@ public class ArticleBizImpl implements ArticleBiz {
 		logger.info("현재시간은 {} 입니다." , nowDate);
 		
 		return nowDate;
+	}
+
+	@Override
+	public List<EmployeesVO> getAllEmployeeInfo() {
+		return articleDAO.getAllEmployeeInfo();
 	}
 	
 	

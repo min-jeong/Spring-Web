@@ -8,8 +8,9 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 	
 	<!-- Connection Pool -->
+	<!-- destroy-method="close" 는 사용하지 않는 클래스?를 닫아준다. -->
 	<bean id="dataSource"
-			class="org.apache.commons.dbcp.BasicDataSource" >
+			class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />
 		<property name="username" value="HR" />
@@ -73,23 +74,5 @@
 	</aop:config>
 	
 </beans>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

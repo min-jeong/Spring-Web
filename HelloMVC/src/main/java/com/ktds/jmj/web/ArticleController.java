@@ -1,5 +1,7 @@
 package com.ktds.jmj.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.jmj.biz.ArticleBiz;
+import com.ktds.jmj.vo.EmployeesVO;
 
 @Controller
 public class ArticleController {
@@ -39,8 +42,10 @@ public class ArticleController {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("article/list"); //어떤 페이지를 보여줄 것인가. jsp의 이름
 		
+		List<EmployeesVO> allEmployees = articleBiz.getAllEmployeeInfo();
 		
 		//request.setAttribute("Key", value);
+		view.addObject("allEmployees", allEmployees);
 		view.addObject("title", "제목");
 		view.addObject("number", "번호");
 		view.addObject("date", nowDate);
