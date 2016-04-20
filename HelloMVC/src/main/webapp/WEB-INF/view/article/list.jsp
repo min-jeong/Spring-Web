@@ -7,9 +7,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-list 페이지 입니다.
-${ title }
-${ number }
-${ author }
+	게시판 목록 입니다.
+	<table border="1">
+		<tr>
+			<td>${ number }</td>
+			<td>${ title }</td>
+			<td>날짜</td>
+
+		</tr>
+		<tr>
+			
+			<td><a href="/HelloMVC/detail/1">1</a></td>
+			<td>${ author }</td>
+			<td>${ date }</td>
+		</tr>
+	</table>
 </body>
 </html>

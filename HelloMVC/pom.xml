@@ -5,6 +5,19 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <build>
+  
+  	<resources>
+		<resource>
+			<directory>src/main/java</directory>
+			<includes>
+				<include>**/*.xml</include>
+			</includes>
+		</resource>
+		<resource>
+			<directory>src/main/resources</directory>
+		</resource>
+	</resources>
+  
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -23,22 +36,27 @@
       </plugin>
     </plugins>
   </build>
+  
+  <repositories>
+  	<repository>
+  		<id>oracle</id>
+  		<name>ORACLE OJDBC Repository</name>
+  		<url>http://maven.jahia.org/maven2</url>
+  	</repository>
+  </repositories>
+  
   <dependencies>
   	<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-webmvc</artifactId>
   		<version>4.2.5.RELEASE</version>
-  		<!-- 의존라이브러리 뺀다. -->
   		<exclusions>
   			<exclusion>
-  				<artifactId>commons-logging</artifactId>
-  				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<groupId>commons-logging</groupId>  			
   			</exclusion>
   		</exclusions>
   	</dependency>
-  	
-  		
-  	
   	<dependency>
   		<groupId>javax.validation</groupId>
   		<artifactId>validation-api</artifactId>
@@ -93,6 +111,41 @@
   		<groupId>org.apache.poi</groupId>
   		<artifactId>poi-ooxml-schemas</artifactId>
   		<version>3.15-beta1</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.oracle</groupId>
+  		<artifactId>ojdbc6</artifactId>
+  		<version>11.1.0.7.0</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.mybatis</groupId>
+  		<artifactId>mybatis-spring</artifactId>
+  		<version>1.2.5</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.mybatis</groupId>
+  		<artifactId>mybatis</artifactId>
+  		<version>3.3.1</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-jdbc</artifactId>
+  		<version>4.2.5.RELEASE</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.aspectj</groupId>
+  		<artifactId>aspectjweaver</artifactId>
+  		<version>1.8.9</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>commons-dbcp</groupId>
+  		<artifactId>commons-dbcp</artifactId>
+  		<version>1.4</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>my-utilities</groupId>
+  		<artifactId>my-utilities</artifactId>
+  		<version>1.0</version>
   	</dependency>
   </dependencies>
 </project>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,17 +8,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<form method="POST" action="/HelloMVC/doLogin">
-<input type="text" name="id" />
-<input type="text" name="password" />
-<input type="text" name="memberNumber" />
-<input type="checkbox" name="enableAutoLogin" value="true" />
-<input type="text" name="hobby" />
-<input type="text" name="hobby" />
-<input type="text" name="hobby" />
-<input type="submit" /> 
-</form>
-
+	<form:form commandName="loginVO" method="post" action="/HelloMVC/doLogin" enctype="multipart/form-data">
+		<input type="text" name ="id" />
+		<form:errors path="id" /><br/>
+		<input type="text" name ="password" />
+		<form:errors path="password" /><br/>
+		<input type="text" name="memberNumber"/>
+		<form:errors path="memberNumber" /><br/>
+		
+		<input type="checkbox" name="enableAutoLogin" value="true"/>
+		<input type="submit" />
+		<input type="text" name="hobby"/>
+		<input type="text" name="hobby"/>
+		<input type="text" name="hobby"/>
+		<input type="file" name="uploadFile" />
+	</form:form>
 </body>
 </html>

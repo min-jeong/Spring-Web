@@ -1,5 +1,7 @@
 package com.ktds.jmj.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -16,14 +18,16 @@ public class ArticleController {
 	
 	private ArticleBiz articleBiz;
 	
+	
 	public void setArticleBiz(ArticleBiz articleBiz) {
 		this.articleBiz = articleBiz;
 	}
-	
+
 	@RequestMapping("/list")
-	public ModelAndView articleList() {
+	public ModelAndView articleList (HttpSession session) {
 		
-		articleBiz.insertNewArticle();
+		String nowDate = articleBiz.insertNewArticle();
+		
 		
 		logger.trace("안녕하세요. 트레이스 입니다.");
 		logger.debug("안녕하세요. 디버그 입니다.");
@@ -31,13 +35,16 @@ public class ArticleController {
 		logger.warn("안녕하세요. 워닝 입니다.");
 		logger.error("안녕하세요. 에러 입니다.");
 		
-		ModelAndView view = new ModelAndView();
-		view.setViewName("article/list");//어떤 페이지를 보여줄 것인가. jsp의 이름
 		
-		//request.setAttribute("Key", "Value"); 와 같다.
+		ModelAndView view = new ModelAndView();
+		view.setViewName("article/list"); //어떤 페이지를 보여줄 것인가. jsp의 이름
+		
+		
+		//request.setAttribute("Key", value);
 		view.addObject("title", "제목");
-		view.addObject("number", "1");
-		view.addObject("author", "전민정");
+		view.addObject("number", "번호");
+		view.addObject("date", nowDate);
+		view.addObject("author", "홍길동");
 		
 		return view;
 	}
@@ -47,6 +54,28 @@ public class ArticleController {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("article/detail");
 		view.addObject("articleNumber", articleNumber);
+		
 		return view;
 	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -12,7 +12,7 @@ public class LoginVO {
 	
 	@NotEmpty(message="ID는 필수 입력값 입니다.")
 	private String id;
-	@NotEmpty(message="PASSWORD는 필수 입력값 입니다.")
+	@NotEmpty(message="Password는 필수 입력값입니다.")
 	private String password;
 	
 	//value가 default값이므로 그냥 적어도 된다.
@@ -23,32 +23,8 @@ public class LoginVO {
 	private boolean enableAutoLogin;
 	private List<String> hobby;
 	
-	private MultipartFile uploadFile;
+	private MultipartFile uploadFile; 
 	
-	public MultipartFile getUploadFile() {
-		return uploadFile;
-	}
-	public void setUploadFile(MultipartFile uploadFile) {
-		this.uploadFile = uploadFile;
-	}
-	public List<String> getHobby() {
-		return hobby;
-	}
-	public void setHobby(List<String> hobby) {
-		this.hobby = hobby;
-	}
-	public boolean isEnableAutoLogin() {
-		return enableAutoLogin;
-	}
-	public void setEnableAutoLogin(boolean enableAutoLogin) {
-		this.enableAutoLogin = enableAutoLogin;
-	}
-	public int getMemberNumber() {
-		return memberNumber;
-	}
-	public void setMemberNumber(int memberNumber) {
-		this.memberNumber = memberNumber;
-	}
 	public String getId() {
 		return id;
 	}
@@ -61,6 +37,31 @@ public class LoginVO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public int getMemberNumber() {
+		return memberNumber;
+	}
+	public void setMemberNumber(int memberNumber) {
+		this.memberNumber = memberNumber;
+	}
+	public boolean isEnableAutoLogin() {
+		return enableAutoLogin;
+	}
+	public void setEnableAutoLogin(boolean enableAutoLogin) {
+		this.enableAutoLogin = enableAutoLogin;
+	}
+	public List<String> getHobby() {
+		return hobby;
+	}
+	public void setHobby(List<String> hobby) {
+		this.hobby = hobby;
+	}
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+	
 	
 	
 }

@@ -1,9 +1,11 @@
 package com.ktds.jmj.web;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,20 +26,18 @@ import com.ktds.jmj.vo.LoginVO;
 import kr.co.hucloud.utilities.excel.option.ReadOption;
 import kr.co.hucloud.utilities.excel.read.ExcelRead;
 
-/**
- * 서블릿을 대체할 클래스 
- * Controller라고 붙인다.
- */
 @Controller
 public class IndexController {
 	
 	private Logger logger = LoggerFactory.getLogger(IndexController.class);
 	
+	
 	//RequestMethod.GET은 get으로만 들어올 수 있다는 정의이다.
 	//브라우저의 요청이 get이니까 URL을 쳐서 들어올 수 있다.
-	@RequestMapping(value="/home", method=RequestMethod.GET )
-	public String index() { 
-		Integer.parseInt("aaaa");
+	@RequestMapping(value="/home", method=RequestMethod.GET)
+	public String index() {
+		
+		//Integer.parseInt("aaaa");
 		
 		return "mainPage";
 	}
@@ -115,16 +116,23 @@ public class IndexController {
 			
 		}
 		
-		session.setAttribute("_MEMBER_", loginVO.getId());
+		
+		
+//		String id = request.getParameter("id");
+//		String password = request.getParameter("password");
+		
+		session.setAttribute("_MEMBER_", loginVO.getId());	
 		
 		System.out.println("ID : " + loginVO.getId());
-		System.out.println("PASSWORD : " + loginVO.getPassword());
-		System.out.println("Member Number :" + loginVO.getMemberNumber());
+		System.out.println("Password : " + loginVO.getPassword());
+		System.out.println("Member Number : " + loginVO.getMemberNumber());
 		System.out.println("Enable Auto Login : " + loginVO.isEnableAutoLogin());
 		
-		for ( int i = 0; i < loginVO.getHobby().size(); i++){
-			System.out.println("Hobby : " + loginVO.getHobby().get(i));
+		for (int i = 0; i < loginVO.getHobby().size(); i++) {
+			System.out.println(loginVO.getHobby().get(i));
 		}
+		
 		return view;
 	}
+	
 }

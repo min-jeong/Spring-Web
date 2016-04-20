@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-${ articleNumber }
-URL에 들어와있는 Parameter가 넘어온다.
+	${articleNumber}번글입니다.
 </body>
 </html>
