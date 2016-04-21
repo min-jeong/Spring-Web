@@ -3,6 +3,16 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="articleService" class="com.ktds.jmj.article.service.impl.ArticleServiceImpl" />
+	<bean id="articleDAO" class="com.ktds.jmj.article.dao.impl.ArticleDAOImpl">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
 
+	<bean id="articleBiz" class="com.ktds.jmj.article.biz.impl.ArticleBizImpl">
+		<property name="articleDAO" ref="articleDAO"></property>
+	</bean>
+	
+	<bean id="articleService" class="com.ktds.jmj.article.service.impl.ArticleServiceImpl">
+		<property name="articleBiz" ref="articleBiz"></property>
+	</bean>
+	
 </beans>

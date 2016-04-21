@@ -11,7 +11,7 @@
 <body style="background-color: #f8f8f8;">
 <div style="text-align: center; position:relative; top: 100px;">
 <h1>WRITE ARTICLE</h1>
-<form:form commandName="articleVO" method="post" action="/board/doWriteAction">
+<form:form commandName="articleVO" method="post" action="/board/doModifyAction/${ articleVO.articleId }">
 	
 	<input type="text" id="subject" name="subject" placeholder="제목을 입력하세요." value="${ articleVO.subject }"
 				style="width : 400px;  line-height: 1.5; border-radius: 0; "/><br/>
@@ -23,7 +23,7 @@
 
 	<textarea id="description" name="description" placeholder="내용을 입력하세요." cols="55" rows="5" >${ articleVO.description }</textarea><br/>
 	
-	<input type="submit" value="글쓰기" />
+	<input type="submit" value="수정" />
 </form:form>
 </div>
 </body>
