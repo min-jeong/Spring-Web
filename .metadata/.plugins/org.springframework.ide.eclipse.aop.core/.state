@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="SpringSimpleBoard"/>
+<aop-project name="SpringSampleSources">
+<aspect-definition advice-class-name="com.hucloud.aop.sample2.aspect.AspectSayHello" advice-method-name="hello" advice-type="AROUND" aspect-end-line-number="27" aspect-name="sayHello" aspect-start-line-number="27" factory-id="org.springframework.ide.eclipse.aop.core.beanAspectDefinitionElementFactory" file="/SpringSampleSources/src/main/resources/aop/applicationContext.xml" pointcut-expression="execution(public * com.hucloud.aop.sample2..*.*(..))" proxy-target-class="false">
+<aop-reference advice-type="AROUND" bean="1:BeansModel|2:SpringSampleSources|3:src/main/resources/aop/applicationContext.xml|7:beans:6|8:aopPracticeBiz:9" bean-file="/SpringSampleSources/src/main/resources/aop/applicationContext.xml" bean-start-line="9" factory-id="org.springframework.ide.eclipse.aop.core.aopReferenceElementFactory" file="/SpringSampleSources/src/main/resources/aop/applicationContext.xml" source="=SpringSampleSources/src\/main\/java&lt;com.hucloud.aop.sample2.aspect{AspectSayHello.java[AspectSayHello~hello~QProceedingJoinPoint;" source-start-line="12" target="=SpringSampleSources/src\/main\/java&lt;com.hucloud.aop.sample2.biz{AOPPracticeBizImpl.java[AOPPracticeBizImpl~sayBye" target-start-line="11"/>
+<aop-reference advice-type="AROUND" bean="1:BeansModel|2:SpringSampleSources|3:src/main/resources/aop/applicationContext.xml|7:beans:6|8:aopPracticeBiz:9" bean-file="/SpringSampleSources/src/main/resources/aop/applicationContext.xml" bean-start-line="9" factory-id="org.springframework.ide.eclipse.aop.core.aopReferenceElementFactory" file="/SpringSampleSources/src/main/resources/aop/applicationContext.xml" source="=SpringSampleSources/src\/main\/java&lt;com.hucloud.aop.sample2.aspect{AspectSayHello.java[AspectSayHello~hello~QProceedingJoinPoint;" source-start-line="12" target="=SpringSampleSources/src\/main\/java&lt;com.hucloud.aop.sample2.biz{AOPPracticeBizImpl.java[AOPPracticeBizImpl~sayHello" target-start-line="6"/>
+</aspect-definition>
+</aop-project>
+<aop-project name="HuCloud"/>
+<aop-project name="SpringDITest"/>
+<aop-project name="HelloMVC"/>
+<aop-project name="FinalSpring"/>
+</aop-reference-model>

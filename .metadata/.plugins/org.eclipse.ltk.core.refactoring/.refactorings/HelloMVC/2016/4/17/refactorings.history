@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;com.ktds.jmj.Interceptor&apos; to &apos;com.ktds.jmj.interceptor&apos;&#x0D;&#x0A;- Original project: &apos;HelloMVC&apos;&#x0D;&#x0A;- Original element: &apos;HelloMVC/src/main/java/com.ktds.jmj.Interceptor&apos;&#x0D;&#x0A;- Renamed element: &apos;HelloMVC/src/main/java/com.ktds.jmj.interceptor&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;com.ktds.jmj.Interceptor&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src\/main\/java&lt;com.ktds.jmj.Interceptor" name="com.ktds.jmj.interceptor" qualified="false" references="true" stamp="1461211238837" textual="false" version="1.0"/>
+</session>

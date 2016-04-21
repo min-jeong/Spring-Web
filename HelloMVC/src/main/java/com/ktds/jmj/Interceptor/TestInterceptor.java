@@ -16,8 +16,8 @@ public class TestInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
-		System.out.println("컨트롤러 실행하기 직전...");
-		//로그인체크
+		System.out.println("?�⑦?��濡ㅻ?�� �떎�뻾�븯湲� 吏곸?��...");
+		//濡쒓?���씤泥댄�?
 		return true;
 	}
 
@@ -27,7 +27,7 @@ public class TestInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
 			throws Exception {
-		System.out.println("컨트롤러 실행한 이후");
+		System.out.println("?�⑦?��濡ㅻ?�� �떎�뻾�븳 �씠�썑");
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class TestInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		System.out.println("브라우저에게 응답되기 직전");
+		System.out.println("?��?��?���슦���뿉寃� �쓳�떟�릺湲� 吏곸?��");
 		
 	}
 	

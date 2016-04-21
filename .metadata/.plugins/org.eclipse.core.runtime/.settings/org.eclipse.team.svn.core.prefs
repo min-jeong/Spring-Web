@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+externalMigrateFromAuthorizationDatabase/isMigrated=true
+migrateFromAuthorizationDatabase/isMigrated=true
+repositories/c09c3c217407001613d2a5a2ef0b5bd9=c09c3c217407001613d2a5a2ef0b5bd9;https\://dev.naver.com/svn/ktdscannon;https\://dev.naver.com/svn/ktdscannon;branches;tags;trunk;true;;;;false;;;0
+repositories/d066961f7407001613d2a5a2ef0b5bd9=d066961f7407001613d2a5a2ef0b5bd9;https\://dev.naver.com/svn/seccoding;https\://dev.naver.com/svn/seccoding;branches;tags;trunk;true;a37014ce-9911-0510-b341-865d41d68d9d;https\://dev.naver.com/svn/seccoding;;false;;;0
