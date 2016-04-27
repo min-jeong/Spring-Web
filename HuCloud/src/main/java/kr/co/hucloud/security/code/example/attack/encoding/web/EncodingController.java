@@ -28,8 +28,8 @@ public class EncodingController {
 		String textData = request.getParameter("text");
 		System.out.println("Encoding 전 : " + textData);
 		
-		//FIXME URLDecoder 를 이용한 Encoding
-		
+		// URLDecoder 를 이용한 Encoding
+		textData = URLDecoder.decode(textData);
 		System.out.println("Encoding 후 : " + textData);
 		
 		return "attack/encoding/encoding";
@@ -41,7 +41,15 @@ public class EncodingController {
 		String textData = request.getParameter("text");
 		System.out.println("Decoding 전 : " + textData);
 		
-		//FIXME Base64Decoder를 이용한 Decoding
+		// Base64Decoder를 이용한 Decoding
+		BASE64Decoder baseDecode = new BASE64Decoder();
+		
+		try {
+			byte[] decodeByte = baseDecode.decodeBuffer(textData);
+			textData = new String( decodeByte );
+		} catch (IOException e) {
+			throw new RuntimeException(e.getMessage(), e);
+		}
 		
 		System.out.println("Decoding 후 : " + textData);
 		
@@ -66,11 +74,27 @@ public class EncodingController {
 		
 		//FIXME URLEncoder를 이용한 Encoding과 HTML Encoding
 		// URLEncoding
+		textData = URLEncoder.encode(textData);
+		
 		System.out.println("URL Encoding 후 : " + textData);
 		view.addObject("result2_1", textData);
 		
 		textData = request.getParameter("text");
 		// HTML Encoding
+		textData = textData.replace("<", "&lt;");
+		textData = textData.replace(">", "&gt;");
+		textData = textData.replace("&#60", "&lt;");
+		textData = textData.replace("&#62", "&gt;");
+		textData = textData.replace("&#x3c", "&lt;");
+		textData = textData.replace("&#x3e", "&gt;");
+		textData = textData.replace("&#X3c", "&lt;");
+		textData = textData.replace("&#X3e", "&gt;");
+		textData = textData.replace("&#x3C", "&lt;");
+		textData = textData.replace("&#x3E", "&gt;");		
+		textData = textData.replace("&#X3C", "&lt;");
+		textData = textData.replace("&#X3E", "&gt;");
+		
+		
 		System.out.println("HTML Encoding 후 : " + textData);
 		
 		view.addObject("result2_2", textData);

@@ -10,6 +10,10 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 	
+	<session-config>
+		<session-timeout>10</session-timeout>
+	</session-config>
+	
 	<context-param>
 	    <param-name>TITLE</param-name>
 	    <param-value>HuCloud Security</param-value>

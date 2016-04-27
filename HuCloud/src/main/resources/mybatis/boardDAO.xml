@@ -27,16 +27,16 @@
 				, RECOMMEND
 				, USERS.USER_NAME 
 				, BOARD.FILE_NAME
-		FROM	SYSTEM.BOARD
-				, SYSTEM.USERS 
+		FROM	BOARD
+				, USERS 
 		WHERE	BOARD.USER_ID = USERS.USER_ID  
 		AND		ID = #{id}
     </select>
     
     <select id="getArticleCountInBoardByCondition"  parameterType="articleSearchVO" resultType="_int">
         SELECT	COUNT(1)
-		FROM	SYSTEM.BOARD
-				, SYSTEM.USERS 
+		FROM	BOARD
+				, USERS 
 		WHERE	BOARD.USER_ID = USERS.USER_ID
 		<if test="searchKeyword != null">
 		    <if test="searchKeyword != ''">
@@ -70,8 +70,8 @@
 										, RECOMMEND
 										, USERS.USER_NAME 
 										, BOARD.FILE_NAME
-								FROM	SYSTEM.BOARD
-										, SYSTEM.USERS 
+								FROM	BOARD
+										, USERS 
 								WHERE	BOARD.USER_ID = USERS.USER_ID
 								<if test="searchKeyword != null">
 								    <if test="searchKeyword != ''">
@@ -86,19 +86,19 @@
     </select>
     
     <update id="updateHit" parameterType="string">
-		UPDATE	SYSTEM.BOARD
+		UPDATE	BOARD
 		SET		HIT = HIT + 1
 		WHERE	ID = #{id}
     </update>
     
     <update id="updateRecommend" parameterType="string">
-		UPDATE	SYSTEM.BOARD
+		UPDATE	BOARD
 		SET		RECOMMEND = RECOMMEND + 1
 		WHERE	ID = #{id}
     </update>
     
     <insert id="insertArticleInBoard" parameterType="map">
-		INSERT INTO SYSTEM.BOARD (
+		INSERT INTO BOARD (
 			ID
 			, SUBJECT
 			, CONTENT  
@@ -121,7 +121,7 @@
     </insert>
     
     <update id="modifyArticleInBoard" parameterType="map">
-        UPDATE	SYSTEM.BOARD
+        UPDATE  BOARD
         SET		SUBJECT = #{subject}
         		, CONTENT = #{content}
         		, FILE_NAME = #{fileName}

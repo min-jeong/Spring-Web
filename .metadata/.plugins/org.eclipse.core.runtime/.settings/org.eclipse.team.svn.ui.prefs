@@ -1,2 +1,10 @@
 eclipse.preferences.version=1
 firstStartup=false
+history.compareUrl=aHR0cHM6Ly9kZXYubmF2ZXIuY29tL3N2bi9rdGRzY2Fubm9u
+org.eclipse.team.svn.ui.panel.local.AddRepositoryPanel.height=109
+org.eclipse.team.svn.ui.panel.local.AddRepositoryPanel.width=470
+org.eclipse.team.svn.ui.panel.remote.ComparePanel.height=177
+org.eclipse.team.svn.ui.panel.remote.ComparePanel.width=470
+org.eclipse.team.svn.ui.panel.reporting.ErrorCancelPanel.height=137
+org.eclipse.team.svn.ui.panel.reporting.ErrorCancelPanel.width=640
+preference.repository.repositoryBrowser=false

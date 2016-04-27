@@ -55,16 +55,18 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public MemberVO login(LoginVO loginVO) {
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
-		//FIXME SQLInjection 방어하기
+		// SQLInjection 방어하기
 		String query = " SELECT USER_ID, USER_NAME, USER_PASSWORD "
-				+ "FROM USERS WHERE USER_ID = '" + loginVO.getId() + "' AND USER_PASSWORD = '" + loginVO.getPassword() + "'";
+				+ "FROM USERS WHERE USER_ID = ? AND USER_PASSWORD = ?";
 		try {
 			conn = dataSource.getConnection();
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(query);
+			stmt = conn.prepareStatement(query);
+			stmt.setString(1, loginVO.getId());
+			stmt.setString(2, loginVO.getPassword());
+			rs = stmt.executeQuery();
 			
 			MemberVO memberVO = null;
 			
@@ -87,17 +89,18 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public List<MemberVO> getUserInfo(String parameter) {
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
 		List<MemberVO> memberList = new ArrayList<MemberVO>();
 		
-		//FIXME SQLInjection 방어하기
-		String query = " SELECT USER_ID, USER_NAME, USER_PASSWORD FROM USERS WHERE USER_ID = '" + parameter + "'";
+		// SQLInjection 방어하기
+		String query = " SELECT USER_ID, USER_NAME, USER_PASSWORD FROM USERS WHERE USER_ID = ?";
 		try {
 			conn = dataSource.getConnection();
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(query);
+			stmt = conn.prepareStatement(query);
+			stmt.setString(1, parameter);
+			rs = stmt.executeQuery();
 			
 			MemberVO memberVO = null;
 			

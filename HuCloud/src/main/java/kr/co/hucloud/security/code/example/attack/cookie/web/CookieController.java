@@ -19,7 +19,11 @@ public class CookieController {
 	public String cookieMethod1(HttpServletRequest request, HttpServletResponse response) {
 		
 		String text = request.getParameter("text");
-		// FIXME Cookie 등록
+		// Cookie 등록
+		
+		Cookie cookie = new Cookie("hello", text);
+		cookie.setMaxAge(999999);
+		response.addCookie(cookie);
 		
 		return "attack/cookie/cookie";
 	}
@@ -30,6 +34,12 @@ public class CookieController {
 		String text = request.getParameter("text");
 		// FIXME Cookie 등록
 		// SSL Mode 에서 동작하도록 함
+		Cookie cookie = new Cookie("hello", text);
+		cookie.setMaxAge(999999);
+		cookie.setSecure(true);
+		cookie.setHttpOnly(true);
+		response.addCookie(cookie);
+		
 		
 		return "attack/cookie/cookie";
 	}

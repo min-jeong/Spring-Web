@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;mol-la&apos;&#x0D;&#x0A;- Original project: &apos;mol-la&apos;&#x0D;&#x0A;- Original element: &apos;mol-la/src/main/java/com.ktds.jmj.article.vo&apos;" description="Delete element" element1="/src\/main\/java&lt;com.ktds.jmj.article.vo" element2="/src\/main\/java&lt;com.ktds.jmj.article" element3="/src\/main\/java&lt;com.ktds.jmj" element4="/src\/main\/java&lt;com.ktds" element5="/src\/main\/java&lt;com" elements="5" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1461547936560" subPackages="false" version="1.0"/>
+</session>

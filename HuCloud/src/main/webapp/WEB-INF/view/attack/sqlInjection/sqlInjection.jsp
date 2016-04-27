@@ -138,8 +138,8 @@ $(document).ready(function() {
 					<tr>
 						<td>
 							실행할 프로그램을 선택하세요 : <select name="programs">
-								<option value="calc.exe">계산기</option>
-								<option value="notepad.exe">메모장</option>
+								<option value="1">계산기</option>
+								<option value="2">메모장</option>
 							</select>
 						</td>
 						<td><input type="submit" value="Execute" /></td>

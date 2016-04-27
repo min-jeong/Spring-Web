@@ -71,9 +71,15 @@ public class SQLInjectionController {
 		
 		String command = request.getParameter("programs");
 		//FIXME Command Injection White List 로 변경
-		
+		String commandName = "";
+		if( command.equals("1")){
+			commandName = "calc.exe";
+		}
+		else if( command.equals("2")){
+			commandName = "notepad.exe";
+		}
 		try {
-			Runtime.getRuntime().exec("cmd.exe /c " + command);
+			Runtime.getRuntime().exec("cmd.exe /c " + commandName);
 		} catch (IOException e) {
 			throw new RuntimeException(e.getMessage(), e);
 		}

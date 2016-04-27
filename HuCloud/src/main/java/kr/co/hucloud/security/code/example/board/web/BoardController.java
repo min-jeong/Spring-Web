@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class BoardController {
 	
-	private static final String FILE_PATH = "C:/Users/mcjan/Documents/workspace-sts-3.7.2.RELEASE/HuCloud/src/main/webapp/WEB-INF/resources/uploadFiles";
+	private static final String FILE_PATH = "C:\\Users\\206-001\\workspace\\JSP_WEB\\HuCloud\\src\\main\\webapp\\WEB-INF\\resources\\uploadFiles";
 	
 	private BoardService boardService;
 	private ReplyService replyService;
