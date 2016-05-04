@@ -19,5 +19,13 @@ public interface MemberDAO {
 	public void updateMemberPassword(MemberVO member);
 
 	public String getSaltById(String id);
+
+	public void loginSuccess(String id);
+
+	public void plusLoginFailCount(String id);
+
+	public void updateAccountLock(String id);
+
+	public boolean isAccountLock(String id);
 	
 }

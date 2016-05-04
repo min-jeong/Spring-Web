@@ -7,14 +7,15 @@ public class ArticleVO {
 	private String articleId;
 	private int articleNumber;
 	
-	@NotEmpty(message="제목을 입력해주세요.")
+	@NotEmpty(message="제목 입력!")
 	private String subject;
-	@NotEmpty(message="작성자의 이름을 입력해주세요.")
+	@NotEmpty(message="작성자 입력!")
 	private String writer;
 	
 	private String description;
 	private String createdDate;
 	private String modifiedDate;
+	
 	
 	public String getArticleId() {
 		return articleId;
@@ -58,7 +59,4 @@ public class ArticleVO {
 	public void setModifiedDate(String modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
-	
-	
-	
 }

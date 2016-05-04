@@ -15,5 +15,13 @@ public interface MemberService {
 	public boolean login(HttpSession session, LoginVO loginVO);
 
 	public List<MemberVO> getUserInfo(String parameter);
+
+	public void loginSuccess(String id);
+
+	public void plusLoginFailCount(String id);
+
+	public void updateAccountLock(String id);
+
+	public boolean isAccountLock(String id);
 	
 }

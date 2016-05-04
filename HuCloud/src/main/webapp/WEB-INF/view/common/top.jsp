@@ -38,9 +38,12 @@ $(document).ready(function() {
 				alert("로그인이 완료되었습니다. 페이지를 새로고침합니다.");
 				location.href="/HuCloud/member";
 			}
-			if(data != "OK") {
+			else if(data == "NO"){
 				alert("로그인이 실패했습니다. 아이디 혹은 비밀번호를 확인해 주세요.");
 				$("#id").focus();
+			}
+			else if(data == "OVER") {
+				alert("로그인이 지속 실패하여 계정이 잠겼습니다. 운영자에게 문의하세요.");
 			}
 		});
 		
@@ -108,6 +111,10 @@ $(document).ready(function() {
 				$("span.login").click();
 				$("#id").val($("#userId").val());
 				$("#password").focus();
+			}
+			else if ( data == "-1") {
+				alert("취약한 비밀 번호를 사용할 수 없습니다.");
+				alert("영문자, 숫자, 특수기호를 포함한 8자리 이상의 비밀번호를 사용하세요.");
 			}
 			else {
 				alert($("#userId").val()+ "은(는) 이미 존재하는 아이디 입니다.");

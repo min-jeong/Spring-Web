@@ -6,7 +6,14 @@ public class MemberRegistryVO {
 	private String userPassword;
 	private String userPasswordConfirm;
 	private String userName;
+	private String salt;
 	
+	public String getSalt() {
+		return salt;
+	}
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
 	public String getUserId() {
 		return userId;
 	}

@@ -5,5 +5,6 @@ public interface PaintDAO {
 	public String getAnswer();
 	
 	public void insertAnswer(String answer);
+	
 	public void deleteAnswer();
-}
+}	

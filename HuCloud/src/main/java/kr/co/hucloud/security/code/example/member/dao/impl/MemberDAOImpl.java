@@ -32,8 +32,8 @@ public class MemberDAOImpl implements MemberDAO {
 		
 		String query = "INSERT INTO USERS ( " +
 				"   USER_ID, USER_NAME, USER_PASSWORD,  " +
-				"   IS_ADMIN_YN, CRT_DT, MDFY_DT)  " +
-				"VALUES ( ?, ?, ?, ?, SYSDATE, SYSDATE ) "; 
+				"   IS_ADMIN_YN, CRT_DT, MDFY_DT, SALT)  " +
+				"VALUES ( ?, ?, ?, ?, SYSDATE, SYSDATE, ? ) "; 
 		try {
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(query);
@@ -41,6 +41,7 @@ public class MemberDAOImpl implements MemberDAO {
 			pstmt.setString(2, memberVO.getUserName());
 			pstmt.setString(3, memberVO.getUserPassword());
 			pstmt.setString(4, "Y");
+			pstmt.setString(5, memberVO.getSalt());
 			pstmt.execute();
 		}
 		catch(SQLException sqle) {
@@ -211,6 +212,101 @@ public class MemberDAOImpl implements MemberDAO {
 		finally {
 			DBCloseUtil.close(conn, stmt, rs);
 		}
+	}
+
+	@Override
+	public void loginSuccess(String id) {
+		 Connection conn = null;
+	      PreparedStatement pstmt = null;
+	      
+	      String query = "UPDATE USERS SET LOGIN_FAIL_COUNT = 0, IS_ACCOUNT_LOCK = 'N', LATEST_LOGIN_DATE = SYSDATE WHERE USER_ID = ?";
+	            
+	      try {
+	         conn = dataSource.getConnection();
+	         pstmt = conn.prepareStatement(query);
+	         pstmt.setString(1, id);
+	         pstmt.execute();
+	      }
+	      catch(SQLException sqle) {
+	         throw new RuntimeException(sqle.getMessage(), sqle);
+	      }
+	      finally {
+	         DBCloseUtil.close(conn, pstmt, null);
+	      }
+
+		
+	}
+
+	@Override
+	public void plusLoginFailCount(String id) {
+		 Connection conn = null;
+	      PreparedStatement pstmt = null;
+	      
+	      String query = "UPDATE USERS SET LOGIN_FAIL_COUNT = LOGIN_FAIL_COUNT + 1," + " LATEST_LOGIN_DATE = SYSDATE WHERE USER_ID = ?";
+	            
+	      try {
+	         conn = dataSource.getConnection();
+	         pstmt = conn.prepareStatement(query);
+	         pstmt.setString(1, id);
+	         pstmt.execute();
+	      }
+	      catch(SQLException sqle) {
+	         throw new RuntimeException(sqle.getMessage(), sqle);
+	      }
+	      finally {
+	         DBCloseUtil.close(conn, pstmt, null);
+	      }
+
+		
+	}
+
+	   @Override
+	   public void updateAccountLock(String id) {
+	      Connection conn = null;
+	      PreparedStatement pstmt = null;
+	      
+	      String query = "UPDATE USERS SET IS_ACCOUNT_LOCK = 'Y' WHERE USER_ID = ? AND LOGIN_FAIL_COUNT >=5";
+	            
+	      try {
+	         conn = dataSource.getConnection();
+	         pstmt = conn.prepareStatement(query);
+	         pstmt.setString(1, id);
+	         pstmt.execute();
+	      }
+	      catch(SQLException sqle) {
+	         throw new RuntimeException(sqle.getMessage(), sqle);
+	      }
+	      finally {
+	         DBCloseUtil.close(conn, pstmt, null);
+	      }
+	   }
+
+	@Override
+	public boolean isAccountLock(String id) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		// SQLInjection 방어하기
+		String query = " SELECT IS_ACCOUNT_LOCK "
+				+ "FROM USERS WHERE USER_ID = ?";
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(query);
+			stmt.setString(1, id);
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getString("IS_ACCOUNT_LOCK").equals("Y");
+			}
+		}
+		catch(SQLException sqle) {
+			throw new RuntimeException(sqle.getMessage(), sqle);
+		}
+		finally {
+			DBCloseUtil.close(conn, stmt, rs);
+		}
+		return false;
 	}
 	
 }

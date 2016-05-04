@@ -16,136 +16,138 @@ import com.ktds.jmj.handler.socket.vo.MessageVO;
 public class EchoHandler extends TextWebSocketHandler {
 	
 	private Logger logger = LoggerFactory.getLogger(EchoHandler.class);
-	private PaintDAO paintDAO;
 	
+	private PaintDAO paintDAO;
 	public void setPaintDAO(PaintDAO paintDAO) {
 		this.paintDAO = paintDAO;
 	}
 
-	/**
-	 * 서버에 연결한 사용자들을 저장하는 리스트.
-	 */
 	private List<WebSocketSession> connectedUsers;
+
 	private List<String> questions;
-	private int questionId;
+	private int questionId = 0;
 	
+	/**
+	 * 서버에 연결한 사용자들 저장
+	 */
 	public EchoHandler() {
 		connectedUsers = new ArrayList<WebSocketSession>();
 		questions = new ArrayList<String>();
-		questions.add("장독대");
-		questions.add("자전거");
-		questions.add("카카오톡");
+		questions.add("보노보노");
+		questions.add("김치찌개");
+		questions.add("나무");
+		questions.add("화분");
 	}
-	// 세가지 이벤트
+	
 	
 	/**
-	 * 접속과 관련되어 있는 Event Method
-	 * @param WebSocketSession  접속한 사용자
+	 * 접속 관련 Event Method
+	 * @param WebSocketSession 접속한 사용자
 	 */
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		
-		if( connectedUsers.size() > 4) {
+		if ( connectedUsers.size() > 4 ) {
 			session.close();
 			return;
 		}
 		
-		if( connectedUsers.size() == 3) {
+		if ( connectedUsers.size() == 3 ) {
 			for (WebSocketSession webSocketSession : connectedUsers) {
-				webSocketSession.sendMessage(new TextMessage("게임을 시작합니다.")); // 다른 사람들에게 보내기
+				webSocketSession.sendMessage(new TextMessage("자 게임 시작"));
 			}
-			session.sendMessage(new TextMessage("게임을 시작합니다.")); // 나한테 보내기
+			session.sendMessage(new TextMessage("게임을 시작합니다"));
 			
 			paintDAO.insertAnswer(questions.get(questionId));
-			
-			connectedUsers.get(questionId).sendMessage(new TextMessage(questions.get(questionId)));
-			
+			connectedUsers.get(questionId).sendMessage( new TextMessage( questions.get(questionId)) );
 			questionId++;
 		}
 		
-		logger.info(session.getId() + "님이 접속했습니다.");
-		logger.info("연결 IP : " +  session.getRemoteAddress().getHostName());
+		logger.info(session.getId() + "님 접속");
+		logger.info("연결 IP : " + session.getRemoteAddress().getHostName());
 		connectedUsers.add(session);
 	}
 	
+	
 	/**
-	 * 두 가지 Event 처리함. 
-	 * 1. Send : 클라이언트가 서버에게 메시지를 보냄.
-	 * 2. Emit : 서버에 연결되어 있는 클라이언트 들에게 메시지를 보냄.
+	 * 2가지 이벤트 처리
+	 * 1. Send : 클라이언트가 서버에게 메시지 보냄
+	 * 2. Emit : 서버에 연결되어 있는 클라이언트들에게 메시지 보냄
 	 * 
 	 * @param WebSocketSession 메시지를 보낸 클라이언트
 	 * @param TextMessage 메시지의 내용
+	 * 
 	 */
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		/*
-		 * payload : 사용자가 보낸 메시지
-		 */
-		logger.info(session.getId() + "님이 메시지를 보냈습니다. : " + message.getPayload());
 		
-		MessageVO messageVO = MessageVO.convertMessgae(message.getPayload());
+		// Payload = 사용자가 보낸 메시지
+		logger.info(session.getId() + "님이 메시지 전송" + message.getPayload());
+		
+		MessageVO messageVO = MessageVO.convertMessage(message.getPayload());
 		
 		String answer = paintDAO.getAnswer();
-		if( answer.equals(messageVO.getMessage()) ){
+		if ( answer.equals( messageVO.getMessage()) ) {
 			
 			paintDAO.deleteAnswer();
-			paintDAO.insertAnswer(questions.get(questionId));
+			paintDAO.insertAnswer( questions.get(questionId) );
 			
 			String userName = session.getRemoteAddress().getHostName();
 			for (WebSocketSession webSocketSession : connectedUsers) {
-				webSocketSession.sendMessage(new TextMessage( userName + " 님이 정답을 맞추었습니다!"));
+				webSocketSession.sendMessage( new TextMessage(userName + "님 정답!" ) );
 			}
+
+			connectedUsers.get(questionId).sendMessage( new TextMessage( questions.get(questionId)) );
+			questionId++;	
 			
-			connectedUsers.get(questionId).sendMessage(new TextMessage(questions.get(questionId)));
-			questionId++;
-			
-			if( questionId == 4 ){
+			if ( questionId == 4 ) {
 				questionId = 0;
 			}
 			
 			return;
-			
 		}
 		
 		String hostName = "";
 		for (WebSocketSession webSocketSession : connectedUsers) {
-			//전체전송
-			if( messageVO.getType().equals("all") ){
-				if( !session.getId().equals(webSocketSession.getId()) ){
-					webSocketSession.sendMessage( new TextMessage(session.getRemoteAddress().getHostName() + " -> " + messageVO.getMessage()) );
+			
+			// 전체 전송
+			if ( messageVO.getType().equals("all") ) {
+				// 보낸 사용자는 받지 않기 위한 조건문
+				if ( !session.getId().equals(webSocketSession.getId()) ) {
+					webSocketSession.sendMessage( new TextMessage( session.getRemoteAddress().getHostName() + " -> " + messageVO.getMessage() ) );
 				}
 			}
-			//귓속말 전송
+			// 귓속말 전송
 			else {
 				hostName = webSocketSession.getRemoteAddress().getHostName();
-				if( messageVO.getTo().equals(hostName)){
-					webSocketSession.sendMessage( new TextMessage(
-							"<span style='color:red;'>" 
-						               + session.getRemoteAddress().getHostName() + " ->" + messageVO.getMessage() +"</span>"));
+				
+				if ( messageVO.getTo().equals(hostName) ) {
+					webSocketSession.sendMessage( new TextMessage( "<span style=/color: red;'>" +  session.getRemoteAddress().getHostName() + " -> " + messageVO.getMessage()  + "</span>") );
 					break;
 				}
-				
-			}
-			
-		}
+			} // else END
+		} // for END
 	}
 	
+	
 	/**
-	 * 클라이언트가 서버와 연결을 끊음
+	 * 클라이언트가 서버와 연결 종료
 	 * 
 	 * @param WebSocketSession 연결을 끊은 클라이언트
-	 * @param CloseStatus 연결 상태(확인 필요)
+	 * @param CloseStatus 연결 상태 (확인 필요)
 	 */
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		logger.info(session.getId() + "님이 퇴장했습니다.");
+		logger.info(session.getId() + "님 접속 종료");
 		connectedUsers.remove(session);
 		
 		for (WebSocketSession webSocketSession : connectedUsers) {
-			if( !session.getId().equals(webSocketSession.getId()) ){
-			webSocketSession.sendMessage( new TextMessage( session.getRemoteAddress().getAddress() + "퇴장했습니다.") );
+			// 보낸 사용자는 받지 않기 위한 조건문
+			if ( !session.getId().equals(webSocketSession.getId()) ) {
+				webSocketSession.sendMessage( new TextMessage( session.getRemoteAddress().getHostName() + " 퇴장했습니다") );
 			}
 		}
 	}
-
-}
+	
+	
+} // Class END

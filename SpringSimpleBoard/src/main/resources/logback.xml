@@ -3,14 +3,16 @@
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<pattern>
-				▶%-5level %d{HH:mm:ss.SSS} [%thread] %logger[%method:%line] - %msg%n
+				▶%-5level %d{HH:mm:ss:.SSS} [%thread] %logger[%method:%line] - %msg%n
 			</pattern>
 		</encoder>
 	</appender>
 	
-	<logger name="org.springframework" level="info" />
+	<!-- 패키지 안에 있는 것들 org.springframework 패키지로 시작하는 것은 console에 INFO로 찍겠다. -->
+	<logger name="org.springframework" level="INFO" />
 	
-	<root level="info">
+	<!-- console로 이름을 가진 appender를 info 레벨로 찍겠다. -->
+	<root level="INFO">
 		<appender-ref ref="console" />
 	</root>
 </configuration>

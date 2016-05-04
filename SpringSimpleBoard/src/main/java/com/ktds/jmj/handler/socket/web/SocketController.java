@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SocketController {
 	
 	@RequestMapping("/chat")
-	public String viewChattingpage() {
+	public String viewChattingPage() {
 		return "chatting/chat";
 	}
 	
 	@RequestMapping("/paint")
-	public String viewPaintingPage() {
+	public String viewPaintPage() {
 		return "chatting/paint";
 	}
+}	
 
-}
+

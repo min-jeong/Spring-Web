@@ -8,13 +8,16 @@ public class MessageVO {
 	private String type;
 	private String to;
 	
-	public static MessageVO convertMessgae(String source) {
+	public static MessageVO convertMessage(String source) {
+		
 		MessageVO message = new MessageVO();
 		Gson gson = new Gson();
+		
 		message = gson.fromJson(source, MessageVO.class);
 		
 		return message;
 	}
+	
 	public String getMessage() {
 		return message;
 	}

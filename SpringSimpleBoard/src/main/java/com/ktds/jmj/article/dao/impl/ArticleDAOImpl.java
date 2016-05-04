@@ -1,8 +1,6 @@
 package com.ktds.jmj.article.dao.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
@@ -13,18 +11,18 @@ import com.ktds.jmj.article.vo.ArticleVO;
 public class ArticleDAOImpl extends SqlSessionDaoSupport implements ArticleDAO {
 
 	@Override
-	public int insertNewArticle(ArticleVO articleVO) {
-		return getSqlSession().insert("ArticleDAO.insertNewArticle", articleVO);
-	}
-
-	@Override
-	public int nextArticleSeq() {
+	public int nextArtcleSeq() {
 		return getSqlSession().selectOne("ArticleDAO.nextArticleSeq");
 	}
-
+	
 	@Override
 	public String nowDate() {
 		return getSqlSession().selectOne("ArticleDAO.nowDate");
+	}
+	
+	@Override
+	public int insertNewArticle(ArticleVO articleVO) {
+		return getSqlSession().insert("ArticleDAO.insertNewArticle", articleVO);
 	}
 
 	@Override
@@ -48,15 +46,8 @@ public class ArticleDAOImpl extends SqlSessionDaoSupport implements ArticleDAO {
 	}
 
 	@Override
-	public int doModifyArticle(ArticleVO articleVO) {
-		Map<String, Object> parameters = new HashMap<String,Object>();
-		
-		parameters.put("articleId", articleVO.getArticleId());
-		parameters.put("newSubject", articleVO.getSubject());
-		parameters.put("newWriter", articleVO.getWriter());
-		parameters.put("newDescription", articleVO.getDescription());
-		
-		return getSqlSession().update("ArticleDAO.doModifyArticle", parameters);
+	public int updateArticle(ArticleVO articleVO) {
+		return getSqlSession().update("ArticleDAO.updateArticle", articleVO);
 	}
 
 }

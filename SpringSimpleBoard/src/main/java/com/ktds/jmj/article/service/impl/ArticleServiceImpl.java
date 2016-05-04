@@ -13,43 +13,76 @@ import com.ktds.jmj.article.vo.ArticleVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
-public class ArticleServiceImpl implements ArticleService{
+public class ArticleServiceImpl implements ArticleService {
 	
 	private ArticleBiz articleBiz;
-	
 	public void setArticleBiz(ArticleBiz articleBiz) {
 		this.articleBiz = articleBiz;
 	}
 
+
 	@Override
 	public ModelAndView writeNewArticle(ArticleVO articleVO, Errors errors) {
 		ModelAndView view = new ModelAndView();
+		boolean result;
 		
-		if( errors.hasErrors() ){
+		if ( errors.hasErrors() ) {
 			view.setViewName("article/write");
 			view.addObject("articleVO", articleVO);
 			return view;
 		}
 		else {
-			boolean result = articleBiz.writeNewArticle(articleVO);
-
-			if( result ) {
+			result = articleBiz.writeNewArticle(articleVO);
+			
+			if (result) {
 				view.setViewName("redirect:/list");
 			}
-			else{
-				throw new RuntimeException("일시적 장애 발생. 잠시후 다시 시도해주세요.");
+			else {
+				throw new RuntimeException("일시적인 장애 발생");
 			}
+			
 		}
 		
-		return view;
+		/*if ( articleVO.getArticleId() == "" ) {
+			
+			if ( errors.hasErrors() ) {
+				view.setViewName("article/write");
+				view.addObject("articleVO", articleVO);
+				return view;
+			}
+			else {
+				result = articleBiz.writeNewArticle(articleVO);
+				
+				if (result) {
+					view.setViewName("redirect:/list");
+				}
+				else {
+					throw new RuntimeException("일시적인 장애 발생");
+				}
+				
+			}
+		}
+		else {
+			result = articleBiz.updateArticle(articleVO);
+			
+			if (result) {
+				view.setViewName("redirect:/detail/" + articleVO.getArticleId());
+			}
+			else {
+				view.setViewName("redirect:/detail/" + articleVO.getArticleId());
+			}			
+		}*/
 		
+		return view;
 	}
+
 
 	@Override
 	public ModelAndView getAllArticleList(int pageNo) {
 		
 		ArticleListVO articleListVO = new ArticleListVO();
 		Paging paging = new Paging();
+		
 		articleListVO.setPaging(paging);
 		
 		paging.setPageNumber(pageNo + "");
@@ -63,62 +96,52 @@ public class ArticleServiceImpl implements ArticleService{
 		
 		List<ArticleVO> articleList = articleBiz.getAllArticle(searchVO);
 		articleListVO.setArticleList(articleList);
-		ModelAndView view = new ModelAndView();
 		
+		ModelAndView view = new ModelAndView();
 		view.setViewName("article/list");
 		view.addObject("articleListVO", articleListVO);
 		
 		return view;
 	}
 
+
 	@Override
-	public ModelAndView getOneArticle(String articleId) {
-		ModelAndView view = new ModelAndView();
-		
-		view.setViewName("article/detail");
-		view.addObject("article", articleBiz.getOneArticle(articleId));
-		
-		return view;
+	public ArticleVO getOneArticle(String articleId) {
+		return articleBiz.getOneArticle(articleId);
 	}
+
 
 	@Override
 	public ModelAndView deleteArticle(String articleId) {
+		
 		ModelAndView view = new ModelAndView();
 		
-		articleBiz.deleteArticle(articleId);
-
-		view.setViewName("redirect:/list");
+		boolean result = articleBiz.deleteArticle(articleId);
+		
+		if ( result ) {
+			view.setViewName("redirect:/list");
+		}
+		else {
+			throw new RuntimeException("삭제 실패");
+		}
 		
 		return view;
 	}
+
 
 	@Override
 	public ModelAndView modifyArticle(String articleId) {
+		
 		ModelAndView view = new ModelAndView();
 		
-		view.setViewName("article/modify");
-		view.addObject("articleVO", articleBiz.getOneArticle(articleId));
-		return view;
-	}
-
-	@Override
-	public ModelAndView doModifyArticle(ArticleVO articleVO, Errors errors) {
-		ModelAndView view = new ModelAndView();
+		ArticleVO articleVO = articleBiz.getOneArticle(articleId);
 		
-		if( errors.hasErrors() ){
-			view.setViewName("article/modify");
+		if ( articleVO != null ) {
 			view.addObject("articleVO", articleVO);
-			return view;
+			view.setViewName("article/write");
 		}
 		else {
-			boolean result = articleBiz.doModifyArticle(articleVO);
-
-			if( result ) {
-				view.setViewName("redirect:/list");
-			}
-			else{
-				throw new RuntimeException("일시적 장애 발생. 잠시후 다시 시도해주세요.");
-			}
+			throw new RuntimeException("이미 삭제되었거나 존재하지 않는 게시글");
 		}
 		
 		return view;

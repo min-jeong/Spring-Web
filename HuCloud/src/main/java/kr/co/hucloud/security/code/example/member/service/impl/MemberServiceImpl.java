@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import kr.co.hucloud.security.code.example.common.LoginStore;
 import kr.co.hucloud.security.code.example.common.Session;
 import kr.co.hucloud.security.code.example.member.dao.MemberDAO;
 import kr.co.hucloud.security.code.example.member.service.MemberService;
 import kr.co.hucloud.security.code.example.member.vo.LoginVO;
 import kr.co.hucloud.security.code.example.member.vo.MemberRegistryVO;
 import kr.co.hucloud.security.code.example.member.vo.MemberVO;
+import kr.co.hucloud.utilities.SHA256Util;
 
 public class MemberServiceImpl implements MemberService {
 
@@ -27,10 +29,23 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public boolean login(HttpSession session, LoginVO loginVO) {
 		
+		String memberSalt = memberDAO.getSaltById(loginVO.getId());
+		String inputPassword = loginVO.getPassword();
+		String newPassword = SHA256Util.getEncrypt(inputPassword, memberSalt);
+		loginVO.setPassword(newPassword);
+	
 		MemberVO memberVO = memberDAO.login(loginVO);
 		
 		if(memberVO != null) {
+			// 로그인 성공시
+			LoginStore loginStore = LoginStore.getInstance();
+			
+			if ( loginStore.get(loginVO.getId()) != null ) { // 이미 누군가가 로그인 했다면
+				loginStore.logout(loginVO.getId()); // 로그아웃 시킨다.
+			}
+			
 			session.setAttribute(Session.MEMBER, memberVO);
+			loginStore.add(loginVO.getId(), session);
 		}
 		
 		return memberVO != null;
@@ -39,5 +54,26 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<MemberVO> getUserInfo(String parameter) {
 		return memberDAO.getUserInfo(parameter);
+	}
+
+	@Override
+	public void loginSuccess(String id) {
+		memberDAO.loginSuccess(id);
+	}
+
+	@Override
+	public void plusLoginFailCount(String id) {
+		memberDAO.plusLoginFailCount(id);
+		
+	}
+
+	@Override
+	public void updateAccountLock(String id) {
+		memberDAO.updateAccountLock(id);
+	}
+
+	@Override
+	public boolean isAccountLock(String id) {
+		return memberDAO.isAccountLock(id);
 	}
 }

@@ -25,5 +25,4 @@ public class ArticleSearchVO {
 		this.endIndex = endIndex;
 	}
 	
-	
 }

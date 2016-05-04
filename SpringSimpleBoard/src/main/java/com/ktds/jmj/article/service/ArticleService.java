@@ -11,11 +11,14 @@ public interface ArticleService {
 
 	public ModelAndView getAllArticleList(int pageNo);
 
-	public ModelAndView getOneArticle(String articleId);
+	public ArticleVO getOneArticle(String articleId);
 
 	public ModelAndView deleteArticle(String articleId);
 
 	public ModelAndView modifyArticle(String articleId);
-
-	public ModelAndView doModifyArticle(ArticleVO articleVO, Errors errors);
+	
 }
+
+
+
+

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nhncorp.lucy.security.xss.XssFilter;
+
 @Controller
 public class XSSController {
 
@@ -30,8 +32,12 @@ public class XSSController {
 		ModelAndView view = new ModelAndView("attack/xss/xss");
 		
 		String requestedString = request.getParameter("script");
+		
+		XssFilter xssFilter = XssFilter.getInstance("/lucy-xss-superset.xml");
+		requestedString = xssFilter.doFilter(requestedString);
+		
 		view.addObject("result", requestedString);
-		//FIXME XSS Case 1. 결과에 대해 HTML Encoding 처리하기
+		// XSS Case 1. 결과에 대해 HTML Encoding 처리하기
 		view.addObject("requestedString1", requestedString);
 		
 		return view;
@@ -43,7 +49,13 @@ public class XSSController {
 		
 		String id = request.getParameter("script");
 		BoardListVO result = boardService.getBoardById(id);
-		//FIXME XSS Case 2. 결과에 대해 HTML Encoding 처리하기
+		
+		// XSS Case 2. 결과에 대해 HTML Encoding 처리하기
+		String content = result.getList().get(0).getContent();
+		XssFilter xssFilter = XssFilter.getInstance("/lucy-xss-superset.xml");
+		content = xssFilter.doFilter(content);
+		result.getList().get(0).setContent(content);
+		
 		view.addObject("result", result.getList().get(0).getContent());
 		view.addObject("requestedString2", id);
 		
@@ -53,7 +65,12 @@ public class XSSController {
 	@RequestMapping("/attack/xss/attack3")
 	public void attack3(HttpServletRequest request, HttpServletResponse response) {
 		String requestedString = request.getParameter("script");
-		//FIXME XSS Case 3. 요청 값에 대해 HTML Encoding 처리하기
+		
+		// XSS Case 3. 요청 값에 대해 HTML Encoding 처리하기
+		XssFilter xssFilter = XssFilter.getInstance("/lucy-xss-superset.xml");
+		requestedString = xssFilter.doFilter(requestedString);
+		
+		
 		SendMessage.send(response, "{ \"result\" : \""+requestedString+"\", \"requestedString3\" : \""+requestedString+"\"}");
 	}
 	

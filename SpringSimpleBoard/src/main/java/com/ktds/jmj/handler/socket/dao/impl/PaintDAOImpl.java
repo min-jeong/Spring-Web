@@ -8,17 +8,19 @@ public class PaintDAOImpl extends SqlSessionDaoSupport implements PaintDAO {
 
 	@Override
 	public String getAnswer() {
+		
 		return getSqlSession().selectOne("PaintDAO.getAnswer");
 	}
 
 	@Override
 	public void insertAnswer(String answer) {
-		getSqlSession().insert("PaintDAO.insertAnswer",answer);
+		getSqlSession().insert("PaintDAO.insertAnswer", answer);
 	}
 
 	@Override
 	public void deleteAnswer() {
 		getSqlSession().delete("PaintDAO.deleteAnswer");
 	}
-
+	
+	
 }

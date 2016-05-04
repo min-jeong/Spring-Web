@@ -43,7 +43,7 @@ $(document).ready(function() {
 		<b style="font-size: 15px; color:#999;">C : ${article.createdDate} / M : ${article.modifiedDate}</b>
 		<hr size="1"/>
 		<c:if test="${not empty article.fileName}">
-			<a href="<c:url value='/resources/uploadFiles/${article.fileName}'/>">
+			<a href="<c:url value='/board/download/${article.id}'/>">
 				<img src="<c:url value='/resources/img/data.png'/>" width="12" height="12"/> ${article.fileName}
 			</a>
 		</c:if>

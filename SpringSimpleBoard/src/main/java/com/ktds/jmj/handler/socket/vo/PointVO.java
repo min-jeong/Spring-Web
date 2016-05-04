@@ -17,6 +17,7 @@ public class PointVO {
 		return point;
 	}
 	
+	
 	public int getPrevX() {
 		return prevX;
 	}
@@ -41,6 +42,4 @@ public class PointVO {
 	public void setNowY(int nowY) {
 		this.nowY = nowY;
 	}
-	
-	
-}
+}	

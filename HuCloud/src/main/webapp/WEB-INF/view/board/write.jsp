@@ -67,6 +67,9 @@ $(document).ready(function() {
 				</td>
 			</tr>
 		</table>
+		
+		<input type="hidden" name="csrfToken" value="${sessionScope._CSRF_TOKEN_}" />
+		
 		</form>
 	</div>
 	<div class="clear"></div>
